@@ -1,4 +1,4 @@
-# arcadia
+# Arcadia
 Light weight modern JS utility belt.
 
 ## License
