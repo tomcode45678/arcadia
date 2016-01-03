@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Arcadia Demo</title>
-  </head>
-  <body>
-    <script>
-    /*
-RequireJS 2.1.22 Copyright (c) 2010-2015, The Dojo Foundation All Rights Reserved.
-Available via the MIT or new BSD license.
-see: http://github.com/jrburke/requirejs for details
+/*
+ RequireJS 2.1.22 Copyright (c) 2010-2015, The Dojo Foundation All Rights Reserved.
+ Available via the MIT or new BSD license.
+ see: http://github.com/jrburke/requirejs for details
 */
 var requirejs,require,define;
 (function(ha){function L(b){return"[object Function]"===R.call(b)}function M(b){return"[object Array]"===R.call(b)}function x(b,c){if(b){var d;for(d=0;d<b.length&&(!b[d]||!c(b[d],d,b));d+=1);}}function Y(b,c){if(b){var d;for(d=b.length-1;-1<d&&(!b[d]||!c(b[d],d,b));--d);}}function w(b,c){return la.call(b,c)}function g(b,c){return w(b,c)&&b[c]}function E(b,c){for(var d in b)if(w(b,d)&&c(b[d],d))break}function Z(b,c,d,k){c&&E(c,function(c,g){if(d||!w(b,g))!k||"object"!==typeof c||!c||M(c)||L(c)||c instanceof
@@ -43,10 +35,3 @@ K._;return c.require[b].apply(c,arguments)}});F&&(D=C.head=document.getElementsB
 g,c,d);e.setAttribute("data-requirecontext",b.contextName);e.setAttribute("data-requiremodule",c);!e.attachEvent||e.attachEvent.toString&&0>e.attachEvent.toString().indexOf("[native code")||da?(e.addEventListener("load",b.onScriptLoad,!1),e.addEventListener("error",b.onScriptError,!1)):(T=!0,e.attachEvent("onreadystatechange",b.onScriptLoad));e.src=d;Q=e;I?D.insertBefore(e,I):D.appendChild(e);Q=null;return e}if(ka)try{importScripts(d),b.completeLoad(c)}catch(q){b.onError(G("importscripts","importScripts failed for "+
 c+" at "+d,q,[c]))}};F&&!v.skipDataMain&&Y(document.getElementsByTagName("script"),function(b){D||(D=b.parentNode);if(P=b.getAttribute("data-main"))return u=P,v.baseUrl||(J=u.split("/"),u=J.pop(),U=J.length?J.join("/")+"/":"./",v.baseUrl=U),u=u.replace(V,""),k.jsExtRegExp.test(u)&&(u=P),v.deps=v.deps?v.deps.concat(u):[u],!0});define=function(b,c,d){var g,e;"string"!==typeof b&&(d=c,c=b,b=null);M(c)||(d=c,c=null);!c&&L(d)&&(c=[],d.length&&(d.toString().replace(qa,"").replace(ra,function(b,d){c.push(d)}),
 c=(1===d.length?["require"]:["require","exports","module"]).concat(c)));T&&(g=Q||pa())&&(b||(b=g.getAttribute("data-requiremodule")),e=K[g.getAttribute("data-requirecontext")]);e?(e.defQueue.push([b,c,d]),e.defQueueMap[b]=!0):W.push([b,c,d])};define.amd={jQuery:!0};k.exec=function(b){return eval(b)};k(v)}})(this);
-    </script>
-    <script src="dist/util.js"></script>
-    <script type="text/javascript">
-      require(['main']);
-    </script>
-  </body>
-</html>
