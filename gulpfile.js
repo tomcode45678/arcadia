@@ -5,15 +5,21 @@ const gulp = require('gulp');
 const sourcemaps = require('gulp-sourcemaps');
 const concat = require('gulp-concat');
 const debug = require('gulp-debug');
+const gutil = require('gulp-util');
+const uglify = require('gulp-uglify');
 
-var defaultTasks = [];
+let env = gutil.env.env;
 
-var tools = {
+let defaultTasks = [];
+
+const tools = {
   sourcemaps: sourcemaps,
   concat: concat,
-  debug: debug
+  debug: debug,
+  gutil: gutil,
+  uglify: uglify
 };
 
-require('./build-tasks/javascript')(gulp, tools, defaultTasks);
+require('./build-tasks/javascript')(gulp, tools, defaultTasks, env);
 
 gulp.task('default', defaultTasks);

@@ -1,8 +1,9 @@
 # Arcadia
-Light weight modern JS utility belt.
+Light weight, modern, JavaScript utility belt.
 
 ## Use
-
+Run `gulp` for development example.
+Run `gulp --env production` for minified example.
 
 ## License
 

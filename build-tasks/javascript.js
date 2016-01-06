@@ -1,5 +1,15 @@
-module.exports = function (gulp, tools, defaultTasks) {
+module.exports = function (gulp, tools, defaultTasks, env) {
   "use strict";
+
+  // TODO es6 default param does not work (06/01/2016)
+  if (!env) {
+    env = 'development';
+  }
+
+  const PATHS = {
+    src: 'src/**/*.js',
+    browserSupport: 'src/**/browser-support/*.js'
+  }
 
   const babel = require('gulp-babel');
 
@@ -25,16 +35,25 @@ module.exports = function (gulp, tools, defaultTasks) {
       babelConfig.plugins.push('transform-es2015-modules-amd');
   }
 
-  // Add task to default
+  // Add task to gulp's default task
   defaultTasks.push('build-js');
 
   gulp.task('build-js', () => {
-    return gulp.src('src/**/*.js')
+    return gulp.src([PATHS.src, `!${PATHS.browserSupport}`])
       .pipe(tools.sourcemaps.init())
       .pipe(babel(babelConfig))
       .pipe(tools.concat('util.js'))
+      .pipe(env === 'production' ? tools.uglify() : tools.gutil.noop())
       .pipe(tools.sourcemaps.write('.'))
       .pipe(gulp.dest('dist'))
       .pipe(tools.debug({title: 'compiling using Babel:'}));
+  });
+
+  // For IE8+ support
+  gulp.task('browser-support', () => {
+    return gulp.src(PATHS.browserSupport)
+      .pipe(tools.concat('browser-support.js'))
+      .pipe(gulp.dest('dist'))
+      .pipe(tools.debug({title: 'build browser support file:'}));
   });
 }
