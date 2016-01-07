@@ -9,13 +9,21 @@ define('main', ['lib/arcadia'], function (_arcadia) {
     };
   }
 
-  var arcadia = new _arcadia2.default();
-  arcadia.ajax().get({
+  var ajaxSettings = {
     url: 'index.html',
+    type: 'get',
     success: function success(data) {
       console.log('Response Length: ' + data.length);
     }
-  });
+  };
+
+  _arcadia2.default.ajax(ajaxSettings);
+
+  _arcadia2.default.ajax().call(ajaxSettings);
+
+  delete ajaxSettings.type;
+
+  _arcadia2.default.ajax().get(ajaxSettings);
 });
 'use strict';
 
@@ -59,18 +67,75 @@ define('lib/arcadia', ['exports', 'lib/micro-libs/ajax'], function (exports, _aj
   var Arcadia = (function () {
     function Arcadia() {
       _classCallCheck(this, Arcadia);
-
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      if (args.length) {}
     }
 
-    _createClass(Arcadia, [{
+    _createClass(Arcadia, null, [{
       key: 'ajax',
-      value: function ajax() {
-        return new _ajax2.default();
+      value: function ajax(config) {
+        return new _ajax2.default(config);
+      }
+    }, {
+      key: 'animation',
+      value: function animation() {
+        return new Animation();
+      }
+    }, {
+      key: 'mediator',
+      value: function mediator() {
+        return new Mediator();
+      }
+    }, {
+      key: 'fingerprinting',
+      value: function fingerprinting() {
+        for (var _len = arguments.length, manifest = Array(_len), _key = 0; _key < _len; _key++) {
+          manifest[_key] = arguments[_key];
+        }
+
+        return new (Function.prototype.bind.apply(Fingerprinting, [null].concat(manifest)))();
+      }
+    }, {
+      key: 'publish',
+      value: function publish() {
+        return new mediator().publish;
+      }
+    }, {
+      key: 'subscribe',
+      value: function subscribe() {
+        return new mediator().subscribe;
+      }
+    }, {
+      key: 'utils',
+      value: function utils() {
+        return new Utils();
+      }
+    }, {
+      key: 'dom',
+      value: (function (_dom) {
+        function dom() {
+          return _dom.apply(this, arguments);
+        }
+
+        dom.toString = function () {
+          return _dom.toString();
+        };
+
+        return dom;
+      })(function () {
+        return new dom();
+      })
+    }, {
+      key: 'on',
+      value: function on() {
+        return new dom().on;
+      }
+    }, {
+      key: 'select',
+      value: function select() {
+        for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+          args[_key2] = arguments[_key2];
+        }
+
+        return new (Function.prototype.bind.apply(dom, [null].concat(args)))();
       }
     }]);
 
@@ -115,15 +180,11 @@ define('lib/micro-libs/ajax', ['exports'], function (exports) {
   })();
 
   var Ajax = (function () {
-    function Ajax() {
+    function Ajax(config) {
       _classCallCheck(this, Ajax);
 
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      if (args.length) {
-        this.call(args[0]);
+      if (config) {
+        this.call(config);
       }
     }
 
@@ -132,13 +193,7 @@ define('lib/micro-libs/ajax', ['exports'], function (exports) {
       value: function call(config) {
         var _this = this;
 
-        config = config || {};
         config = this.checkConfig(config);
-
-        if (!config.url) {
-          throw new Error('Invalid value of param', 'Expected url to be String, got ' + _typeof(config.url), 'ajax call');
-        }
-
         var call = this.getRequestObject(config.crossDomain);
         var getLoadAPIName = this.getLoadAPIName(call);
         call.open(config.type, config.url, true);
@@ -164,9 +219,33 @@ define('lib/micro-libs/ajax', ['exports'], function (exports) {
         call.send(this.sendData(config));
       }
     }, {
+      key: 'get',
+      value: function get() {
+        var config = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+        config.type = 'GET';
+        this.call(config);
+      }
+    }, {
+      key: 'put',
+      value: function put() {
+        var config = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+        config.type = 'PUT';
+        this.call(config);
+      }
+    }, {
+      key: 'post',
+      value: function post() {
+        var config = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+        config.type = 'POST';
+        this.call(config);
+      }
+    }, {
       key: 'checkConfig',
       value: function checkConfig(config) {
-        config = config || {};
+        if (!config.url) {
+          throw new Error('Invalid value of param', 'Expected url to be String, got ' + _typeof(config.url), 'ajax call');
+        }
+
         return {
           url: config.url || '',
           type: config.type || 'GET',
@@ -177,27 +256,6 @@ define('lib/micro-libs/ajax', ['exports'], function (exports) {
           crossDomain: config.crossDomain || false,
           requestHeader: config.requestHeader || false
         };
-      }
-    }, {
-      key: 'get',
-      value: function get(config) {
-        config = config || {};
-        config.type = 'GET';
-        this.call(config);
-      }
-    }, {
-      key: 'put',
-      value: function put(config) {
-        config = config || {};
-        config.type = 'PUT';
-        this.call(config);
-      }
-    }, {
-      key: 'post',
-      value: function post(config) {
-        config = config || {};
-        config.type = 'POST';
-        this.call(config);
       }
     }, {
       key: 'getRequestObject',
