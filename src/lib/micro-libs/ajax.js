@@ -2,9 +2,9 @@
  * Ajax methods
  */
 export default class Ajax {
-  constructor (...args) {
-    if (args.length) {
-      this.call(args[0]);
+  constructor (config) {
+    if (config) {
+      this.call(config);
     }
   }
 
@@ -14,13 +14,7 @@ export default class Ajax {
    * @returns {string | JSON | undefined}
    */
   call(config) {
-    config = config || {};
-
     config = this.checkConfig(config);
-
-    if (!config.url) {
-      throw new Error('Invalid value of param', `Expected url to be String, got ${typeof config.url}`, 'ajax call');
-    }
 
     var call = this.getRequestObject(config.crossDomain);
 
@@ -50,12 +44,42 @@ export default class Ajax {
   }
 
   /**
+   * Get request
+   * @param {object} config
+   */
+  get(config = {}) {
+    config.type = 'GET';
+    this.call(config);
+  }
+
+  /**
+   * Put request
+   * @param {object} config
+   * @returns {object}
+   */
+  put(config = {}) {
+    config.type = 'PUT';
+    this.call(config);
+  }
+
+  /**
+   * Post request
+   * @param {object} config
+   */
+  post(config = {}) {
+    config.type = 'POST';
+    this.call(config);
+  }
+
+  /**
    * Check config parameter, apply default when required
    * @param {object} config
    * @returns {object}
    */
   checkConfig(config) {
-    config = config || {};
+    if (!config.url) {
+      throw new Error('Invalid value of param', `Expected url to be String, got ${typeof config.url}`, 'ajax call');
+    }
 
     return {
       // API/End point
@@ -81,41 +105,7 @@ export default class Ajax {
 
       // Request headers
       requestHeader: config.requestHeader || false
-    };
-  }
-
-  /**
-   * Get request
-   * @param {object} config
-   */
-  get(config) {
-    config = config || {};
-
-    config.type = 'GET';
-    this.call(config);
-  }
-
-  /**
-   * Put request
-   * @param {object} config
-   * @returns {object}
-   */
-  put(config) {
-    config = config || {};
-
-    config.type = 'PUT';
-    this.call(config);
-  }
-
-  /**
-   * Post request
-   * @param {object} config
-   */
-  post(config) {
-    config = config || {};
-
-    config.type = 'POST';
-    this.call(config);
+    }
   }
 
   /**
