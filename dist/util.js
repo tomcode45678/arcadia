@@ -80,18 +80,18 @@ define('lib/arcadia', ['exports', 'lib/micro-libs/ajax'], function (exports, _aj
         return new Animation();
       }
     }, {
+      key: 'fingerprinting',
+      value: function fingerprinting() {
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
+        }
+
+        return new (Function.prototype.bind.apply(Fingerprinting, [null].concat(args)))();
+      }
+    }, {
       key: 'mediator',
       value: function mediator() {
         return new Mediator();
-      }
-    }, {
-      key: 'fingerprinting',
-      value: function fingerprinting() {
-        for (var _len = arguments.length, manifest = Array(_len), _key = 0; _key < _len; _key++) {
-          manifest[_key] = arguments[_key];
-        }
-
-        return new (Function.prototype.bind.apply(Fingerprinting, [null].concat(manifest)))();
       }
     }, {
       key: 'publish',
@@ -102,6 +102,11 @@ define('lib/arcadia', ['exports', 'lib/micro-libs/ajax'], function (exports, _aj
       key: 'subscribe',
       value: function subscribe() {
         return new mediator().subscribe;
+      }
+    }, {
+      key: 'perf',
+      value: function perf() {
+        return new Perf();
       }
     }, {
       key: 'utils',
