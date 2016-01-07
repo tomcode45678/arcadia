@@ -1,9 +1,13 @@
-module.exports = function (gulp, tools, defaultTasks, env) {
+module.exports = function (gulp, tools, defaultTasks, env, moduleType) {
   "use strict";
 
   // TODO es6 default param does not work (06/01/2016)
   if (!env) {
     env = 'development';
+  }
+
+  if (!moduleType) {
+    moduleType = 'amd'; // (amd, commonjs, systemjs)
   }
 
   const PATHS = {
@@ -13,22 +17,19 @@ module.exports = function (gulp, tools, defaultTasks, env) {
 
   const babel = require('gulp-babel');
 
-  // Set module output here - blank returns native imports
-  const MODULE_TYPE = 'amd'; // (amd, commonjs, systemjs)
-
   // Any babel config
   let babelConfig = {
       presets: ['es2015'],
       plugins: []
   };
 
-  if (MODULE_TYPE === 'systemjs') {
+  if (moduleType === 'systemjs') {
       babelConfig.plugins.push('transform-es2015-modules-systemjs');
   }
-  else if (MODULE_TYPE === 'commonjs') {
+  else if (moduleType === 'commonjs') {
       babelConfig.plugins.push('transform-es2015-modules-commonjs');
   }
-  else if (MODULE_TYPE === 'amd') {
+  else if (moduleType === 'amd') {
       Object.assign(babelConfig, {
           moduleIds: true
       });

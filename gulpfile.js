@@ -20,6 +20,6 @@ const tools = {
   uglify: uglify
 };
 
-require('./build-tasks/javascript')(gulp, tools, defaultTasks, env);
+require('./build-tasks/javascript')(gulp, tools, defaultTasks, env, 'amd');
 
 gulp.task('default', defaultTasks);
