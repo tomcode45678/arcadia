@@ -46,7 +46,7 @@ module.exports = function (gulp, tools, defaultTasks, env) {
       .pipe(env === 'production' ? tools.uglify() : tools.gutil.noop())
       .pipe(tools.sourcemaps.write('.'))
       .pipe(gulp.dest('dist'))
-      .pipe(tools.debug({title: 'compiling using Babel:'}));
+      .pipe(tools.debug({title: 'Compiling using Babel:'}));
   });
 
   // For IE8+ support
@@ -54,6 +54,6 @@ module.exports = function (gulp, tools, defaultTasks, env) {
     return gulp.src(PATHS.browserSupport)
       .pipe(tools.concat('browser-support.js'))
       .pipe(gulp.dest('dist'))
-      .pipe(tools.debug({title: 'build browser support file:'}));
+      .pipe(tools.debug({title: 'Building browser support file:'}));
   });
 }
