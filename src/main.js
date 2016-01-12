@@ -1,4 +1,4 @@
-import Arcadia from 'lib/arcadia';
+import Arcadia from './lib/arcadia';
 
 let ajaxSettings = {
   url: 'index.html',

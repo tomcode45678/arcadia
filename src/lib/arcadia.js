@@ -1,4 +1,4 @@
-import Ajax from 'lib/micro-libs/ajax';
+import Ajax from './micro-libs/ajax';
 //import Animation from 'lib/micro-libs/animation';
 //import Fingerprinting from 'lib/micro-libs/fingerprinting';
 //import Mediator from 'lib/micro-libs/mediator';
