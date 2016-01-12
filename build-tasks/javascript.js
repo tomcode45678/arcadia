@@ -30,18 +30,15 @@ module.exports = function (gulp, tools, defaultTasks, env) {
 
   let buildDeps = ['babel'];
 
-  if (output === 'systemjs') {
-    babelConfig.plugins.push('transform-es2015-modules-systemjs');
+  if (output === 'systemjs' || output === 'amd') {
+    Object.assign(babelConfig, {
+      moduleIds: true
+    });
+    babelConfig.plugins.push(`transform-es2015-modules-${output}`);
   }
   else if (output === 'commonjs') {
     buildDeps.push('commonjs');
     babelConfig.plugins.push('transform-es2015-modules-commonjs');
-  }
-  else if (output === 'amd') {
-    Object.assign(babelConfig, {
-      moduleIds: true
-    });
-    babelConfig.plugins.push('transform-es2015-modules-amd');
   }
 
   // Add task to gulp's default task
@@ -56,7 +53,7 @@ module.exports = function (gulp, tools, defaultTasks, env) {
     return gulp.src([PATHS.src, `!${PATHS.browserSupport}`])
       .pipe(tools.sourcemaps.init())
       .pipe(babel(babelConfig))
-      .pipe(output === 'amd' ? tools.concat('util.js') : tools.gutil.noop())
+      .pipe(output !== 'commonjs' ? tools.concat('util.js') : tools.gutil.noop())
       .pipe(env === 'production' ? tools.uglify() : tools.gutil.noop())
       .pipe(tools.sourcemaps.write('.'))
       .pipe(gulp.dest('dist'))
