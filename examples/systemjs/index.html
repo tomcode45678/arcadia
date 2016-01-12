@@ -5,6 +5,10 @@
     <title>ArcadiaJS - SystemJS Demo</title>
   </head>
   <body>
-    <script src="index.js"></script>
+    <script data-systemjs-version="0.19.15" src="system.js"></script>
+    <script src="../../dist/util.js"></script>
+    <script>
+      System.import('main');
+    </script>
   </body>
 </html>
