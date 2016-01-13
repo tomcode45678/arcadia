@@ -14,7 +14,7 @@ const runSequence = require('run-sequence');
 let env = gutil.env.env;
 
 gulp.task('clean', () => {
-  return del('dist/**/*');
+  return del(['dist/**/*', 'examples/commonjs/index.js']);
 });
 
 let defaultTasks = [];

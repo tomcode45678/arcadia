@@ -1,4 +1,4 @@
 node_modules
 dist
-example/commonjs/index.js
+examples/commonjs/index.js
 npm-debug.log
