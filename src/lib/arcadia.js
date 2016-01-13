@@ -10,7 +10,7 @@ import Ajax from './micro-libs/ajax';
  * Arcadia class containing all static functions
  */
 export default class Arcadia {
-  constructor (...args) {
+  constructor (/*...args*/) {
     // Controlling default actions
     // mainMicroLib(...args);
   }
@@ -20,42 +20,42 @@ export default class Arcadia {
   }
 
   static animation() {
-    return new Animation();
+    //return new Animation();
   }
 
-  static fingerprinting(...args) {
-    return new Fingerprinting(...args);
+  static fingerprinting(/*...args*/) {
+    //return new Fingerprinting(...args);
   }
 
   static mediator() {
-    return new Mediator();
+    //return new Mediator();
   }
 
   static publish() {
-    return new mediator().publish;
+    //return new mediator().publish;
   }
 
   static subscribe() {
-    return new mediator().subscribe;
+    //return new mediator().subscribe;
   }
 
   static perf() {
-    return new Perf();
+    //return new Perf();
   }
 
   static utils() {
-    return new Utils();
+    //return new Utils();
   }
 
   static dom() {
-    return new dom();
+    //return new dom();
   }
 
   static on() {
-    return new dom().on;
+    //return new dom().on;
   }
 
-  static select(...args) {
-    return new dom(...args);
+  static select(/*...args*/) {
+    //return new dom(...args);
   }
 }
