@@ -1,3 +1,4 @@
+/* globals console */
 import Arcadia from './lib/arcadia';
 
 let ajaxSettings = {
