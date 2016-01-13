@@ -1,4 +1,4 @@
-# Arcadia
+# Arcadia [![Build Status](https://travis-ci.org/tomsta93/arcadia.svg?branch=master)](https://travis-ci.org/tomsta93/arcadia)
 Light weight, modern, JavaScript utility belt.
 
 ## Use
