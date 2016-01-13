@@ -1,3 +1,5 @@
+/* globals XDomainRequest, ActiveXObject, XMLHttpRequest */
+
 /**
  * Ajax methods
  */
@@ -24,7 +26,7 @@ export default class Ajax {
 
     call[getLoadAPIName] = () => {
       this.responseHandler(call, config);
-    }
+    };
 
     if (call.onerror) {
       call.onerror = function (e) {
@@ -105,7 +107,7 @@ export default class Ajax {
 
       // Request headers
       requestHeader: config.requestHeader || false
-    }
+    };
   }
 
   /**
@@ -166,7 +168,6 @@ export default class Ajax {
       return customError.apply(this, [error, status, message]);
     }
     throw new Error(error, status, message);
-    return false;
   }
 
   /**
@@ -180,7 +181,6 @@ export default class Ajax {
       config.error(e);
     }
     throw new Error('AJAX warning: ', 'onerror thrown', e.message, e.stack);
-    return false;
   }
 
   /**
@@ -206,7 +206,7 @@ export default class Ajax {
    */
   parseResponse(config) {
     if (config.dataType && config.dataType.toLowerCase() === 'json') {
-      if (isJSON(config.responseText)) {
+      if (this.isJSON(config.responseText)) {
         config.responseText = JSON.parse(config.responseText);
       }
     }
