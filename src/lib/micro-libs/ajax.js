@@ -1,4 +1,4 @@
-/* globals XDomainRequest, ActiveXObject, XMLHttpRequest */
+/* globals XMLHttpRequest */
 
 /**
  * Ajax methods
@@ -18,13 +18,11 @@ export default class Ajax {
   call(config) {
     config = this.checkConfig(config);
 
-    var call = this.getRequestObject(config.crossDomain);
-
-    var getLoadAPIName = this.getLoadAPIName(call);
+    var call = new XMLHttpRequest();
 
     call.open(config.type, config.url, true);
 
-    call[getLoadAPIName] = () => {
+    call.onload = () => {
       this.responseHandler(call, config);
     };
 
@@ -108,29 +106,6 @@ export default class Ajax {
       // Request headers
       requestHeader: config.requestHeader || false
     };
-  }
-
-  /**
-   * Get request object
-   * @param {boolean} crossDomain
-   * @returns {object}
-   */
-  getRequestObject(crossDomain) {
-    try {
-      // IE8
-      return crossDomain ? new XDomainRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    } catch (error) {
-      return new XMLHttpRequest();
-    }
-  }
-
-  /**
-   * Get load type
-   * @param call
-   * @returns {string}
-   */
-  getLoadAPIName(call) {
-    return call.onload === null ? 'onload' : 'onreadystatechange';
   }
 
   /**

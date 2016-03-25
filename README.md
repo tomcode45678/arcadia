@@ -5,14 +5,18 @@ Light weight, modern, JavaScript utility belt.
 * `npm i`
 
 ## Use
-* Run `gulp` for development example.
-* Run `gulp --env production` for minified example.
+* Run `npm run build` for development example.
+* Run `npm run production` for minified example.
 
-### Set Output
-* `gulp` - Uses [System JS](https://github.com/systemjs/systemjs)
-* `gulp --output systemjs` - - Uses [System JS](https://github.com/systemjs/systemjs)
-* `gulp --output commonjs` - Uses [Browserify](http://browserify.org/)
-* `gulp --output amd` - Uses [RequireJS](http://requirejs.org/)
+### Set Output - Build
+* `npm run build-systemjs` - Uses [System JS](https://github.com/systemjs/systemjs)
+* `npm run build-commonjs` - Uses [Browserify](http://browserify.org/)
+* `npm run build-amd` - Uses [RequireJS](http://requirejs.org/)
+
+### Set Output - Production (Minified)
+* `npm run production-systemjs` - Uses [System JS](https://github.com/systemjs/systemjs)
+* `npm run production-commonjs` - Uses [Browserify](http://browserify.org/)
+* `npm run production-amd` - Uses [RequireJS](http://requirejs.org/)
 
 ## License
 

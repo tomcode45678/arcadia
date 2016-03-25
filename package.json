@@ -4,7 +4,15 @@
   "description": "Light weight, modern, JavaScript utility belt",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "jshint src -c .jshintrc"
+    "lint": "jshint src -c .jshintrc",
+    "build": "node_modules/gulp/bin/gulp.js",
+    "build-systemjs": "node_modules/gulp/bin/gulp.js --output systemjs",
+    "build-commonjs": "node_modules/gulp/bin/gulp.js --output commonjs",
+    "build-amd": "node_modules/gulp/bin/gulp.js --output amd",
+    "production": "node_modules/gulp/bin/gulp.js --env production",
+    "production-systemjs": "node_modules/gulp/bin/gulp.js --output systemjs --env production",
+    "production-commonjs": "node_modules/gulp/bin/gulp.js --output commonjs --env production",
+    "production-amd": "node_modules/gulp/bin/gulp.js --output amd --env production"
   },
   "license": "MIT",
   "repository": "tomsta93/arcadia",
