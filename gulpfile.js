@@ -10,6 +10,8 @@ const uglify = require('gulp-uglify');
 const source = require('vinyl-source-stream');
 const del = require('del');
 const runSequence = require('run-sequence');
+const changed = require('gulp-changed');
+const plumber = require('gulp-plumber');
 
 let env = gutil.env.env;
 
@@ -27,11 +29,13 @@ const tools = {
   uglify: uglify,
   gutil: gutil,
   source: source,
-  runSequence: runSequence
+  runSequence: runSequence,
+  changed: changed,
+  plumber: plumber
 };
 
 require('./build-tasks/javascript')(gulp, tools, defaultTasks, env);
 
-gulp.task('default', (done) => {
+gulp.task('default', done => {
   runSequence('clean', defaultTasks, done);
 });
