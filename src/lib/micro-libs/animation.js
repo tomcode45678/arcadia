@@ -1,3 +1,5 @@
+/* globals console, setInterval, clearInterval */
+
 import DOMTraverse from './dom-traverse';
 
 /**
@@ -40,7 +42,7 @@ export default class Animation extends DOMTraverse {
    */
   fadeOut(element, callback) {
     if(!element || !super.isDomElement(element)) {
-      debug.warn('This function expects to use one DOM element', `Got ${typeof element}`, 'fadeOut');
+      console.warn('This function expects to use one DOM element', `Got ${typeof element}`, 'fadeOut');
       return;
     }
 

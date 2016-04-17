@@ -1,3 +1,5 @@
+/* globals document, setInterval, clearInterval, console, window, HTMLElement */
+
 /**
  * DOM manipulation class
  *
@@ -39,7 +41,8 @@ export default class DOMTraverse {
     }
 
     if (this.isDomElement(selector)) {
-      return this.elements = [selector];
+      this.elements = [selector];
+      return this.elements;
     }
 
     if (this.isNodeList(selector)) {
@@ -90,7 +93,7 @@ export default class DOMTraverse {
     return this.event('off', ...args);
   }
 
-  event(eventType = 'on', ...args) {
+  event(eventType, ...args) {
     if (arguments.length !== 3 && arguments.length !== 4) {
       console.error('Invalid amount of arguments', `Expected 2 or 3, got ${arguments.length}`, eventType);
     }
@@ -282,7 +285,7 @@ export default class DOMTraverse {
 
           if (elementFoundCopy.nextElementSibling) {
             if (elementFoundCopy.nextElementSibling.contains(element)) {
-              return elementFound[ii];
+              return elementFound[i];
             }
           }
           elementFoundCopy = elementFoundCopy.parentNode;
@@ -303,7 +306,7 @@ export default class DOMTraverse {
       while (element !== document) {
         let elementFind = element.querySelectorAll(find);
         if (elementFind.length) {
-          return findElement(elementsModule.element, elementFind, element);
+          return findElement(this.elements[0], elementFind, element);
         }
         element = element.parentNode;
       }
@@ -380,8 +383,8 @@ export default class DOMTraverse {
   removeClass(className, element) {
     element = element || this.elements[0];
 
-    if (!isDomElement(element)) {
-      elementsModule.debug.warn('This function expects to use one DOM element', 'Got' + typeof element, 'removeClass');
+    if (!this.isDomElement(element)) {
+      console.warn('This function expects to use one DOM element', `Got ${typeof element}`, 'removeClass');
       return false;
     }
 
