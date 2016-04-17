@@ -44,8 +44,8 @@ module.exports = function (gulp, tools, defaultTasks, env) {
 
   function compile (watch) {
     return gulp.src([PATHS.src, `!${PATHS.browserSupport}`])
-      .pipe(tools.changed(DIST))
-      .pipe(tools.plumber())
+      .pipe(watch ? tools.changed(DIST) : tools.gutil.noop())
+      .pipe(watch ? tools.plumber() : tools.gutil.noop())
       .pipe(tools.sourcemaps.init())
       .pipe(babel(babelConfig))
       .pipe(output !== 'commonjs' ? tools.concat('util.js') : tools.gutil.noop())
@@ -56,9 +56,9 @@ module.exports = function (gulp, tools, defaultTasks, env) {
     );
   }
 
-  gulp.task('esl', () => compile());
+  gulp.task('esl', compile);
 
-  gulp.task('watch-esl', () => gulp.watch(PATHS.src, ['compile']));
+  gulp.task('watch-esl', () => gulp.watch(PATHS.src, ['esl']));
 
   gulp.task('commonjs', () => {
     return browserify(`${DIST}/main.js`)
