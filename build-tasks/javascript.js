@@ -80,8 +80,6 @@ module.exports = function (gulp, tools, defaultTasks, env) {
   // Add task to gulp's default task
   defaultTasks.push('build-js');
 
-  gulp.task('build-js', () => {
-    // ...buildDeps not supported
-    tools.runSequence.apply(this, buildDeps);
-  });
+  // ...buildDeps not supported
+  gulp.task('build-js', () => tools.runSequence.apply(this, buildDeps));
 }

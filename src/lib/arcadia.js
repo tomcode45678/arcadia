@@ -1,18 +1,17 @@
 import Ajax from './micro-libs/ajax';
-//import Animation from 'lib/micro-libs/animation';
-//import Fingerprinting from 'lib/micro-libs/fingerprinting';
-//import Mediator from 'lib/micro-libs/mediator';
-//import Perf from 'lib/micro-libs/performance';
-//import Utils from 'lib/micro-libs/utils';
-//import * as dom from 'lib/micro-libs/dom';
+//import Animation from './micro-libs/animation';
+//import Fingerprinting from './micro-libs/fingerprinting';
+//import Mediator from './micro-libs/mediator';
+//import Perf from './micro-libs/performance';
+//import Utils from './micro-libs/utils';
+import DOMTraverse from './micro-libs/dom-traverse';
 
 /**
  * Arcadia class containing all static functions
  */
 export default class Arcadia {
-  constructor (/*...args*/) {
-    // Controlling default actions
-    // mainMicroLib(...args);
+  constructor (...args) {
+    new DOMTraverse(...args);
   }
 
   static ajax(config) {
@@ -47,15 +46,15 @@ export default class Arcadia {
     //return new Utils();
   }
 
-  static dom() {
-    //return new dom();
+  static DOMTraverse(...args) {
+    return new DOMTraverse(...args);
   }
 
-  static on() {
-    //return new dom().on;
+  static on(...args) {
+    return new DOMTraverse(...args).on;
   }
 
-  static select(/*...args*/) {
-    //return new dom(...args);
+  static find(...args) {
+    return new DOMTraverse(...args);
   }
 }
