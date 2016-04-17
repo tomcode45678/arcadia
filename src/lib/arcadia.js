@@ -1,5 +1,5 @@
 import Ajax from './micro-libs/ajax';
-//import Animation from './micro-libs/animation';
+import Animation from './micro-libs/animation';
 //import Fingerprinting from './micro-libs/fingerprinting';
 //import Mediator from './micro-libs/mediator';
 //import Perf from './micro-libs/performance';
@@ -19,7 +19,7 @@ export default class Arcadia {
   }
 
   static animation() {
-    //return new Animation();
+    return new Animation();
   }
 
   static fingerprinting(/*...args*/) {
