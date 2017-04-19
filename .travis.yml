@@ -2,6 +2,7 @@ sudo: false
 language: javascript
 install:
   - npm install -g jshint
+  - npm install -g jest
 script: "npm run lint & npm t"
 before_script:
   - export DISPLAY=:99.0

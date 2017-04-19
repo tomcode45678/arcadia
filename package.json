@@ -1,6 +1,6 @@
 {
   "name": "arcadia",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Light weight, modern, JavaScript utility belt",
   "scripts": {
     "test": "./node_modules/jest/bin/jest.js",
