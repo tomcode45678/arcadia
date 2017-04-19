@@ -6,13 +6,7 @@
     "test": "./node_modules/jest/bin/jest.js",
     "lint": "jshint src -c .jshintrc",
     "build": "./node_modules/gulp/bin/gulp.js",
-    "build-systemjs": "./node_modules/gulp/bin/gulp.js --output systemjs",
-    "build-commonjs": "./node_modules/gulp/bin/gulp.js --output commonjs",
-    "build-amd": "./node_modules/gulp/bin/gulp.js --output amd",
-    "production": "./node_modules/gulp/bin/gulp.js --env production",
-    "production-systemjs": "./node_modules/gulp/bin/gulp.js --output systemjs --env production",
-    "production-commonjs": "./node_modules/gulp/bin/gulp.js --output commonjs --env production",
-    "production-amd": "./node_modules/gulp/bin/gulp.js --output amd --env production"
+    "production": "./node_modules/gulp/bin/gulp.js --env production"
   },
   "license": "MIT",
   "repository": "tomsta93/arcadia",
@@ -25,7 +19,6 @@
     "babel-plugin-transform-es2015-modules-commonjs": "^6.3.16",
     "babel-plugin-transform-es2015-modules-systemjs": "^6.3.13",
     "babel-preset-es2015": "^6.3.13",
-    "browserify": "^13.0.0",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.1",

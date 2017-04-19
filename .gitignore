@@ -1,6 +1,4 @@
 .idea
 node_modules
 dist
-examples/commonjs/index.js
 npm-debug.log
-test/coverage
