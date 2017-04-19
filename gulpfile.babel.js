@@ -27,7 +27,6 @@ const tools = {
   debug: debug,
   gutil: gutil,
   uglify: uglify,
-  gutil: gutil,
   source: source,
   runSequence: runSequence,
   changed: changed,

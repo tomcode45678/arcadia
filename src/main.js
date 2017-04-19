@@ -30,3 +30,5 @@ function test () {
 }
 
 app.add('body').on('click', test);
+
+export { test as default };

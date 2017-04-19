@@ -1,0 +1,17 @@
+{
+  "globals": {},
+  "moduleFileExtensions": [
+    "js"
+  ],
+  "unmockedModulePathPatterns": [
+    "./node_modules"
+  ],
+  "automock": true,
+  "transform": {".*": "./node_modules/babel-jest"},
+  "testRegex": "(\\.(test|spec))\\.(js|jsx)$",
+  "testPathIgnorePatterns": [
+    "/node_modules/",
+    "^((?!spec.js).)*$"
+  ],
+  "collectCoverage": true
+}

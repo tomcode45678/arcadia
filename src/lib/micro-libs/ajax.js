@@ -36,11 +36,25 @@ export default class Ajax {
       call.withCredentials = true;
     }
 
-    if (config.requestHeader && call.setRequestHeader) {
-      call.setRequestHeader(config.requestHeader.header, config.requestHeader.value);
+    const requestHeaders = config.requestHeaders;
+    if (requestHeaders && requestHeaders.length) {
+      this.setRequestHeaders(requestHeaders, requestHeaders.length, call);
     }
 
     call.send(this.sendData(config));
+  }
+
+  /**
+   * Set multiple headers
+   * @param {array} requestHeaders
+   * @param {number} requestHeadersLength
+   * @param {object} call
+   */
+  setRequestHeaders (requestHeaders, requestHeadersLength, call) {
+    for (let i = 0; i < requestHeadersLength; i++) {
+      const requestHeader = requestHeaders[i];
+      call.setRequestHeader(requestHeader.header, requestHeader.value);
+    }
   }
 
   /**
@@ -104,7 +118,7 @@ export default class Ajax {
       crossDomain: config.crossDomain || false,
 
       // Request headers
-      requestHeader: config.requestHeader || false
+      requestHeaders: config.requestHeaders || []
     };
   }
 
