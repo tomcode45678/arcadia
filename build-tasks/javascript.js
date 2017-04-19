@@ -9,10 +9,7 @@ module.exports = function (gulp, tools, defaultTasks, env) {
     env = 'development';
   }
 
-  const PATHS = {
-    src: 'src/**/*.js',
-    browserSupport: 'src/**/browser-support/*.js'
-  };
+  const PATH = 'src/**/*.js';
 
   const babel = require('gulp-babel');
   const DIST = 'dist';
@@ -26,7 +23,7 @@ module.exports = function (gulp, tools, defaultTasks, env) {
   let buildDeps = ['esl'];
 
   function compile (watch) {
-    return gulp.src([PATHS.src, `!${PATHS.browserSupport}`])
+    return gulp.src(PATHS)
       .pipe(watch ? tools.changed(DIST) : tools.gutil.noop())
       .pipe(watch ? tools.plumber() : tools.gutil.noop())
       .pipe(tools.sourcemaps.init())
@@ -41,15 +38,7 @@ module.exports = function (gulp, tools, defaultTasks, env) {
 
   gulp.task('esl', compile);
 
-  gulp.task('watch-esl', () => gulp.watch(PATHS.src, ['esl']));
-
-  // For IE8+ support
-  gulp.task('browser-support', () => {
-    return gulp.src(PATHS.browserSupport)
-      .pipe(tools.concat('browser-support.js'))
-      .pipe(gulp.dest(DIST))
-      .pipe(tools.debug({title: 'Building browser support file:'}));
-  });
+  gulp.task('watch-esl', () => gulp.watch(PATHS, ['esl']));
 
   // Add task to gulp's default task
   defaultTasks.push('build-js');
