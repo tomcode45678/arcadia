@@ -1,10 +1,10 @@
 {
   "name": "arcadia",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Light weight, modern, JavaScript utility belt",
   "scripts": {
     "test": "./node_modules/jest/bin/jest.js",
-    "lint": "jshint src -c .jshintrc",
+    "lint": "",
     "build": "./node_modules/gulp/bin/gulp.js",
     "production": "./node_modules/gulp/bin/gulp.js --env production"
   },
@@ -29,7 +29,6 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.1",
     "gulp-util": "^3.0.7",
-    "jshint": "^2.9.1",
     "run-sequence": "^1.1.5",
     "vinyl-source-stream": "^1.1.0"
   },
