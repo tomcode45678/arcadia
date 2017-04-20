@@ -1,5 +1,7 @@
 sudo: false
 language: javascript
+node_js:
+  - "6.9.2"
 install:
   - npm install -g yarn
   - yarn
