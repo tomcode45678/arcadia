@@ -15,7 +15,7 @@ To support browsers lower than IE9, I recommend you include [ES5 Shim](https://g
 * `yarn`
 
 ## Use
-* Development - `npm run build`
+* Development - `npm run dev`
 * Production - `npm run production`
 
 ## Test

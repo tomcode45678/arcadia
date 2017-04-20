@@ -4,8 +4,9 @@
   "description": "Light weight, modern, JavaScript utility belt",
   "scripts": {
     "test": "./node_modules/jest/bin/jest.js",
-    "lint": "",
-    "build": "./node_modules/gulp/bin/gulp.js",
+    "lint": "./node_modules/.bin/eslint .",
+    "dev": "./node_modules/gulp/bin/gulp.js",
+    "clean": "./node_modules/gulp/bin/gulp.js clean",
     "production": "./node_modules/gulp/bin/gulp.js --env production"
   },
   "license": "MIT",
@@ -21,7 +22,6 @@
     "babel-preset-es2015": "^6.3.13",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.1",
     "gulp-changed": "^1.3.0",
     "gulp-concat": "^2.6.0",
     "gulp-debug": "^2.1.2",
@@ -33,10 +33,17 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "gulp-babel": "^6.1.1",
+    "babel-eslint": "^7.2.2",
     "babel-jest": "^19.0.0",
     "babel-preset-es2016": "^6.24.1",
     "babel-preset-es2017": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
     "jest": "^19.0.2",
     "regenerator-runtime": "^0.10.3"
   }

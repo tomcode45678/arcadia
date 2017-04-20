@@ -1,0 +1,11 @@
+dist
+.git
+node_modules
+.babelignore
+.babelrc
+.editorconfig
+.gitignore
+gulpfile.babel.js
+package.json
+*.spec.js
+examples

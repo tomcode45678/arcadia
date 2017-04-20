@@ -1,29 +1,25 @@
-/* globals console, setInterval, clearInterval */
+/* eslint-disable no-console */
 
-import DOMTraverse from './dom-traverse';
+import DOMHelper from './dom';
 
 /**
  * Animation class
  */
-export default class Animation extends DOMTraverse {
-  constructor () {
-    super();
-  }
-
+export default class Animation {
   /**
    * Fades DOM element in
    * @param {object} element
    * @param {function} [callback]
    */
-  fadeIn(element, callback) {
-    if(!element || !super.isDomElement(element)) {
+  static fadeIn (element, callback) {
+    if (!element || !DOMHelper.isDomElement(element)) {
       console.warn('This function expects to use one DOM element', `Got ${typeof element}`, 'fadeIn');
       return;
     }
 
-    var opacity = 0;
-    var interval = setInterval(() => {
-      opacity = opacity + 0.02;
+    let opacity = 0;
+    const interval = setInterval(() => {
+      opacity += 0.02;
       element.style.opacity = opacity;
       if (element.style.opacity >= 0.9) {
         element.style.opacity = 1;
@@ -40,15 +36,15 @@ export default class Animation extends DOMTraverse {
    * @param {object} element
    * @param {function} [callback]
    */
-  fadeOut(element, callback) {
-    if(!element || !super.isDomElement(element)) {
+  static fadeOut (element, callback) {
+    if (!element || !DOMHelper.isDomElement(element)) {
       console.warn('This function expects to use one DOM element', `Got ${typeof element}`, 'fadeOut');
       return;
     }
 
     element.style.opacity = 1;
-    var interval = setInterval(() => {
-      element.style.opacity = element.style.opacity - 0.02;
+    const interval = setInterval(() => {
+      element.style.opacity -= 0.02;
       if (element.style.opacity <= 0.1) {
         element.style.opacity = 0;
         clearInterval(interval);

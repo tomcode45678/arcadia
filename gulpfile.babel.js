@@ -1,39 +1,37 @@
-"use strict";
+'use strict';
 
 // Gulp plugins
-const gulp = require('gulp');
-const sourcemaps = require('gulp-sourcemaps');
-const concat = require('gulp-concat');
-const debug = require('gulp-debug');
-const gutil = require('gulp-util');
-const uglify = require('gulp-uglify');
-const source = require('vinyl-source-stream');
-const del = require('del');
-const runSequence = require('run-sequence');
-const changed = require('gulp-changed');
-const plumber = require('gulp-plumber');
+import gulp from 'gulp';
+import sourcemaps from 'gulp-sourcemaps';
+import concat from 'gulp-concat';
+import debug from 'gulp-debug';
+import gutil from 'gulp-util';
+import uglify from 'gulp-uglify';
+import del from 'del';
+import runSequence from 'run-sequence';
+import changed from 'gulp-changed';
+import plumber from 'gulp-plumber';
+
+import JavaScriptTasks from './build-tasks/javascript';
 
 let env = gutil.env.env;
 
-gulp.task('clean', () => {
-  return del(['dist/**/*', 'examples/commonjs/index.js']);
-});
+gulp.task('clean', () => del(['dist/**/*']));
 
 let defaultTasks = [];
 
 const tools = {
-  sourcemaps: sourcemaps,
-  concat: concat,
-  debug: debug,
-  gutil: gutil,
-  uglify: uglify,
-  source: source,
-  runSequence: runSequence,
-  changed: changed,
-  plumber: plumber
+  sourcemaps,
+  concat,
+  debug,
+  gutil,
+  uglify,
+  runSequence,
+  changed,
+  plumber
 };
 
-require('./build-tasks/javascript')(gulp, tools, defaultTasks, env);
+JavaScriptTasks(gulp, tools, defaultTasks, env);
 
 gulp.task('default', done => {
   runSequence('clean', defaultTasks, done);

@@ -1,56 +1,28 @@
-/* globals XMLHttpRequest */
-
 /**
  * Ajax methods
  */
 export default class Ajax {
-  constructor (config) {
-    if (config) {
-      this.call(config);
-    }
-  }
 
   /**
-   * Call AJAX functionality
-   * @param {object} config
-   * @returns {string | JSON | undefined}
+   * Check if string is JSON
+   * @param string
+   * @returns {boolean}
    */
-  call(config) {
-    config = this.checkConfig(config);
-
-    var call = new XMLHttpRequest();
-
-    call.open(config.type, config.url, true);
-
-    call.onload = () => {
-      this.responseHandler(call, config);
-    };
-
-    if (call.onerror) {
-      call.onerror = function (e) {
-        this.throwError(e, config);
-      };
+  static isJSON (string) {
+    let returnValue = false;
+    if (typeof string === 'string') {
+      try {
+        JSON.parse(string);
+        returnValue = true;
+      }
+      catch (e) {
+        returnValue = false;
+      }
     }
-
-    if (call.withCredentials && config.crossDomain) {
-      call.withCredentials = true;
-    }
-
-    const requestHeaders = config.requestHeaders;
-    if (requestHeaders && requestHeaders.length) {
-      this.setRequestHeaders(requestHeaders, requestHeaders.length, call);
-    }
-
-    call.send(this.sendData(config));
+    return returnValue;
   }
 
-  /**
-   * Set multiple headers
-   * @param {array} requestHeaders
-   * @param {number} requestHeadersLength
-   * @param {object} call
-   */
-  setRequestHeaders (requestHeaders, requestHeadersLength, call) {
+  static setRequestHeader (requestHeaders, requestHeadersLength, call) {
     for (let i = 0; i < requestHeadersLength; i++) {
       const requestHeader = requestHeaders[i];
       call.setRequestHeader(requestHeader.header, requestHeader.value);
@@ -58,31 +30,31 @@ export default class Ajax {
   }
 
   /**
-   * Get request
-   * @param {object} config
-   */
-  get(config = {}) {
-    config.type = 'GET';
-    this.call(config);
-  }
-
-  /**
-   * Put request
-   * @param {object} config
+   * Ajax error handler
+   * @param e
+   * @param config
    * @returns {object}
    */
-  put(config = {}) {
-    config.type = 'PUT';
-    this.call(config);
+  static throwError (e, config) {
+    if (typeof config.error === 'function') {
+      config.error(e);
+    }
+    throw new Error('AJAX warning: ', 'onerror thrown', e.message, e.stack);
   }
 
   /**
-   * Post request
-   * @param {object} config
+   * What should be sent with the request to the URL
+   * @param config
+   * @returns {string}
    */
-  post(config = {}) {
-    config.type = 'POST';
-    this.call(config);
+  static sendData (config) {
+    if (config.type.toLowerCase() !== 'get') {
+      if (typeof config.send === 'string') {
+        return config.send;
+      }
+      return JSON.stringify(config.send);
+    }
+    return null;
   }
 
   /**
@@ -90,9 +62,13 @@ export default class Ajax {
    * @param {object} config
    * @returns {object}
    */
-  checkConfig(config) {
+  static checkConfig (config) {
     if (!config.url) {
-      throw new Error('Invalid value of param', `Expected url to be String, got ${typeof config.url}`, 'ajax call');
+      throw new Error(
+        'Invalid value of param',
+        `Expected url to be String, got ${typeof config.url}`,
+        'ajax call'
+      );
     }
 
     return {
@@ -123,79 +99,13 @@ export default class Ajax {
   }
 
   /**
-   * Ajax response handler
-   * @param call
-   * @param config
-   * @returns {object | string}
-   */
-  responseHandler(call, config) {
-    if (call.readyState === 4) {
-      var status = call.status;
-
-      if (status === 200) {
-        config.responseText = call.response || call.responseText;
-        return this.parseResponse(config);
-      }
-
-      if (status === 400) {
-        return this.responseError(config.error, ['AJAX error: ', 'status 400', `AJAX call was not available for ${config.url}`]);
-      }
-
-      if (status === 404) {
-        return this.responseError(config.error, ['AJAX error: ', 'status 404', `AJAX call was not found for ${config.url}`]);
-      }
-      return this.responseError(config.error, ['AJAX error: ', 'status ' + status, `AJAX call failed for ${config.url}`]);
-    }
-  }
-
-  /**
-   * Error handler
-   * @param customError
-   */
-  responseError(customError, {error, status, message}) {
-    if (customError) {
-      return customError.apply(this, [error, status, message]);
-    }
-    throw new Error(error, status, message);
-  }
-
-  /**
-   * Ajax error handler
-   * @param e
-   * @param config
-   * @returns {object}
-   */
-  throwError(e, config) {
-    if (typeof config.error === 'function') {
-      config.error(e);
-    }
-    throw new Error('AJAX warning: ', 'onerror thrown', e.message, e.stack);
-  }
-
-  /**
-   * What should be sent with the request to the URL
-   * @param config
-   * @returns {string}
-   */
-  sendData(config) {
-    if (config.type.toLowerCase() !== 'get') {
-      if (typeof config.send === 'string') {
-        return config.send;
-      } else {
-        return JSON.stringify(config.send);
-      }
-    }
-    return null;
-  }
-
-  /**
    * Parse data from request
    * @param config
    * @returns {JSON | string}
    */
-  parseResponse(config) {
+  static parseResponse (config) {
     if (config.dataType && config.dataType.toLowerCase() === 'json') {
-      if (this.isJSON(config.responseText)) {
+      if (Ajax.isJSON(config.responseText)) {
         config.responseText = JSON.parse(config.responseText);
       }
     }
@@ -205,21 +115,133 @@ export default class Ajax {
     return config.responseText;
   }
 
-  /**
-   * Check if string is JSON
-   * @param string
-   * @returns {boolean}
-   */
-  isJSON(string) {
-    let returnValue = false;
-    if (typeof string === 'string') {
-      try {
-        JSON.parse(string);
-        returnValue = true;
-      } catch (e) {
-        returnValue = false;
-      }
+  constructor (config) {
+    if (config) {
+      this.call(config);
     }
-    return returnValue;
+  }
+
+  /**
+   * Call AJAX functionality
+   * @param {object} config
+   * @returns {string | JSON | undefined}
+   */
+  call (config) {
+    config = Ajax.checkConfig(config);
+
+    const call = new XMLHttpRequest();
+
+    call.open(config.type, config.url, true);
+
+    call.onload = () => {
+      this.responseHandler(call, config);
+    };
+
+    if (call.onerror) {
+      call.onerror = (e) => {
+        Ajax.throwError(e, config);
+      };
+    }
+
+    if (call.withCredentials && config.crossDomain) {
+      call.withCredentials = true;
+    }
+
+    const requestHeaders = config.requestHeaders;
+    if (requestHeaders && requestHeaders.length) {
+      Ajax.setRequestHeader(requestHeaders, requestHeaders.length, call);
+    }
+
+    call.send(Ajax.sendData(config));
+  }
+
+  /**
+   * Get request
+   * @param {object} config
+   */
+  get (config = {}) {
+    config.type = 'GET';
+    this.call(config);
+  }
+
+  /**
+   * Put request
+   * @param {object} config
+   * @returns {object}
+   */
+  put (config = {}) {
+    config.type = 'PUT';
+    this.call(config);
+  }
+
+  /**
+   * Post request
+   * @param {object} config
+   */
+  post (config = {}) {
+    config.type = 'POST';
+    this.call(config);
+  }
+
+  /**
+   * Ajax response handler
+   * @param call
+   * @param config
+   * @returns {object | string}
+   */
+  responseHandler (call, config) {
+    if (call.readyState === 4) {
+      const status = call.status;
+
+      if (status === 200) {
+        config.responseText = call.response || call.responseText;
+        return Ajax.parseResponse(config);
+      }
+
+      if (status === 400) {
+        return this.responseError(
+          config.error,
+          [
+            'AJAX error: ',
+            'status 400',
+            `AJAX call was not available for ${config.url}`
+          ]
+        );
+      }
+
+      if (status === 404) {
+        return this.responseError(
+          config.error,
+          [
+            'AJAX error: ',
+            'status 404',
+            `AJAX call was not found for ${config.url}`
+          ]
+        );
+      }
+      return this.responseError(
+        config.error,
+        [
+          'AJAX error: ',
+          `status ${status}`,
+          `AJAX call failed for ${config.url}`
+        ]
+      );
+    }
+    return '';
+  }
+
+  /**
+   * Error handler
+   * @param customError
+   * @param error
+   * @param status
+   * @param message
+   */
+  responseError (customError, { error, status, message }) {
+    if (customError) {
+      return customError.apply(this, [error, status, message]);
+    }
+    throw new Error(error, status, message);
   }
 }

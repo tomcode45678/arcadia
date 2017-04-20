@@ -1,34 +1,30 @@
-/* globals console */
-import Arcadia from './lib/arcadia';
+/* eslint-disable no-console */
+import app from './lib/arcadia';
 
 // Ajax Examples
-let ajaxSettings = {
+const ajaxSettings = {
   url: 'index.html',
   type: 'get',
   success: data => console.log(`Response Length: ${data.length}`)
 };
 
-Arcadia.ajax(ajaxSettings);
+const ajax = new app.Ajax(ajaxSettings);
 
-Arcadia.ajax().call(ajaxSettings);
+ajax.call(ajaxSettings);
 
 delete ajaxSettings.type;
 
-let ajax = Arcadia.ajax();
-
 ajax.get(ajaxSettings);
 
 ajax.get(ajaxSettings);
 
 
-// domTraverse examples
-let app = Arcadia.find('body');
+// DOMHelper examples
+const body = new app.DOMHelper('body');
 
 function test () {
   console.log('Clicked!');
-  app.off('click', test);
+  body.off('click', test);
 }
 
-app.add('body').on('click', test);
-
-export { test as default };
+body.on('click', test);

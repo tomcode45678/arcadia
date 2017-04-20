@@ -1,7 +1,8 @@
 sudo: false
 language: javascript
 install:
-  - npm install -g jest
+  - npm install -g yarn
+  - yarn
 script: "npm run lint & npm t"
 before_script:
   - export DISPLAY=:99.0

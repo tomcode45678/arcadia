@@ -1,5 +1,5 @@
-import arcadia from './arcadia';
+import app from './arcadia';
 
 test('is a function', () => {
-  expect(arcadia.ajax).toEqual(jasmine.any(Function));
+  expect(app.Ajax).toEqual(jasmine.any(Function));
 });

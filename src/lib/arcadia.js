@@ -1,60 +1,30 @@
+/* eslint-disable import/no-unresolved */
+
 import Ajax from './micro-libs/ajax';
 import Animation from './micro-libs/animation';
-//import Fingerprinting from './micro-libs/fingerprinting';
-//import Mediator from './micro-libs/mediator';
-//import Perf from './micro-libs/performance';
-//import Utils from './micro-libs/utils';
-import DOMTraverse from './micro-libs/dom-traverse';
+import DOMHelper from './micro-libs/dom';
+// import Mediator from './micro-libs/mediator';
+// import Toolkit from './micro-libs/toolkit';
+// import utils from './micro-libs/utils';
+// import perf from './micro-libs/perf';
+
+// const mediator = new Mediator();
 
 /**
- * Arcadia class containing all static functions
+ * Arcadia object containing all micro libraries
  */
-export default class Arcadia {
-  constructor (...args) {
-    new DOMTraverse(...args);
-  }
 
-  static ajax(config) {
-    return new Ajax(config);
-  }
+const Arcadia = {
+  Ajax,
+  DOMHelper,
+  Animation,
+  // mediator,
+  // publish: mediator.publish.bind(mediator),
+  // subscribe: mediator.subscribe.bind(mediator),
+  // remove: mediator.remove.bind(mediator),
+  // Toolkit,
+  // utils
+  // perf
+};
 
-  static animation() {
-    return new Animation();
-  }
-
-  static fingerprinting(/*...args*/) {
-    //return new Fingerprinting(...args);
-  }
-
-  static mediator() {
-    //return new Mediator();
-  }
-
-  static publish() {
-    //return new mediator().publish;
-  }
-
-  static subscribe() {
-    //return new mediator().subscribe;
-  }
-
-  static perf() {
-    //return new Perf();
-  }
-
-  static utils() {
-    //return new Utils();
-  }
-
-  static DOMTraverse(...args) {
-    return new DOMTraverse(...args);
-  }
-
-  static on(...args) {
-    return new DOMTraverse(...args).on;
-  }
-
-  static find(...args) {
-    return new DOMTraverse(...args);
-  }
-}
+export default Arcadia;

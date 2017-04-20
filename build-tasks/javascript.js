@@ -1,8 +1,7 @@
-module.exports = function (gulp, tools, defaultTasks, env) {
-  "use strict";
+import babel from 'gulp-babel';
 
-  // Destructuring not supported
-  //var {sourcemaps, concat, debug, gutil, uglify, gutil, source, runSequence, changed} = tools;
+const JavaScriptTasks = (gulp, tools, defaultTasks, env) => {
+  const { sourcemaps, concat, debug, uglify, gutil, runSequence, changed, plumber } = tools;
 
   // Default params not supported
   if (!env) {
@@ -10,8 +9,6 @@ module.exports = function (gulp, tools, defaultTasks, env) {
   }
 
   const PATH = 'src/**/*.js';
-
-  const babel = require('gulp-babel');
   const DIST = 'dist';
 
   // Any babel config
@@ -20,29 +17,30 @@ module.exports = function (gulp, tools, defaultTasks, env) {
     plugins: ['transform-es2015-modules-systemjs']
   };
 
-  let buildDeps = ['esl'];
+  const buildDeps = ['esl'];
 
   function compile (watch) {
-    return gulp.src(PATHS)
-      .pipe(watch ? tools.changed(DIST) : tools.gutil.noop())
-      .pipe(watch ? tools.plumber() : tools.gutil.noop())
-      .pipe(tools.sourcemaps.init())
+    return gulp.src(PATH)
+      .pipe(watch ? changed(DIST) : gutil.noop())
+      .pipe(watch ? plumber() : gutil.noop())
+      .pipe(sourcemaps.init())
       .pipe(babel(babelConfig))
-      .pipe(tools.concat('util.js'))
-      .pipe(env === 'production' ? tools.uglify() : tools.gutil.noop())
-      .pipe(tools.sourcemaps.write('.'))
+      .pipe(concat('util.js'))
+      .pipe(env === 'production' ? uglify() : gutil.noop())
+      .pipe(sourcemaps.write('.'))
       .pipe(gulp.dest(DIST))
-      .pipe(tools.debug({title: 'Compiling using Babel:'})
+      .pipe(debug({ title: 'Compiling using Babel:' })
     );
   }
 
   gulp.task('esl', compile);
 
-  gulp.task('watch-esl', () => gulp.watch(PATHS, ['esl']));
+  gulp.task('watch-esl', () => gulp.watch(PATH, ['esl']));
 
   // Add task to gulp's default task
   defaultTasks.push('build-js');
 
-  // ...buildDeps not supported
-  gulp.task('build-js', () => tools.runSequence.apply(this, buildDeps));
-}
+  gulp.task('build-js', () => runSequence(...buildDeps));
+};
+
+export { JavaScriptTasks as default };
