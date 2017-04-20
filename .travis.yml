@@ -1,9 +1,9 @@
 sudo: false
-language: javascript
+language: node_js
+cache: yarn
 node_js:
   - "6.9.2"
 install:
-  - npm install -g yarn
   - yarn
 script: "npm run lint & npm t"
 before_script:
