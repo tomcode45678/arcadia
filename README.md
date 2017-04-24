@@ -18,9 +18,11 @@ To support browsers lower than IE9, I recommend you include [ES5 Shim](https://g
 
 ### Default
 
-1. Copy the bundle from `/dist`
-2. Utilise helpers in scripts
-3. Give Arcadia a star and contribute
+1. Clone the repo
+2. Build Production Bundle - `npm run production`
+3. Copy the bundle from `/dist`
+4. Utilise helpers in scripts
+5. Give Arcadia a star and contribute
 
 ### Custom
 
