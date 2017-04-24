@@ -27,7 +27,6 @@ const tools = {
   debug,
   gutil,
   uglify,
-  runSequence,
   changed,
   plumber
 };

@@ -15,10 +15,28 @@ To support browsers lower than IE9, I recommend you include [ES5 Shim](https://g
 * `yarn`
 
 ## Use
-* Development - `npm run dev`
-* Production - `npm run production`
 
-## Test
+### Default
+
+1. Copy the bundle from `/dist`
+2. Utilise helpers in scripts
+3. Give Arcadia a star and contribute
+
+### Custom
+
+1. Clone the repo
+2. Add, remove or update scripts
+3. Build Production Bundle - `npm run production`
+4. Copy the bundle from `/dist`
+5. Utilise helpers in scripts
+6. Give Arcadia a star and contribute
+
+## Dev
+
+* Build scripts for development - `npm run dev`
+* Run watch tasks - `npm run watch`
+
+### Test
 
 * Linting - `npm run lint`
 * Unit Tests - `npm t`
