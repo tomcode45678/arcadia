@@ -1,7 +1,7 @@
 import babel from 'gulp-babel';
 
-const JavaScriptTasks = (gulp, tools, defaultTasks, env) => {
-  const { sourcemaps, concat, debug, uglify, gutil, runSequence, changed, plumber } = tools;
+const JavaScriptTasks = (gulp, tools, defaultTasks, watchTasks, env) => {
+  const { sourcemaps, concat, debug, uglify, gutil, changed, plumber } = tools;
 
   // Default params not supported
   if (!env) {
@@ -17,8 +17,6 @@ const JavaScriptTasks = (gulp, tools, defaultTasks, env) => {
     plugins: ['transform-es2015-modules-systemjs']
   };
 
-  const buildDeps = ['esl'];
-
   function compile (watch) {
     return gulp.src(PATH)
       .pipe(watch ? changed(DIST) : gutil.noop())
@@ -33,14 +31,11 @@ const JavaScriptTasks = (gulp, tools, defaultTasks, env) => {
     );
   }
 
-  gulp.task('esl', compile);
+  gulp.task('build-js', compile);
+  gulp.task('build-js-watch', () => gulp.watch(PATH, () => compile(true)));
 
-  gulp.task('watch-esl', () => gulp.watch(PATH, ['esl']));
-
-  // Add task to gulp's default task
   defaultTasks.push('build-js');
-
-  gulp.task('build-js', () => runSequence(...buildDeps));
+  watchTasks.push('build-js-watch');
 };
 
 export { JavaScriptTasks as default };

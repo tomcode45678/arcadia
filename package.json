@@ -45,7 +45,6 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
     "gulp-babel": "^6.1.1",
-    "gulp-watch": "^4.3.11",
     "jest": "^19.0.2",
     "regenerator-runtime": "^0.10.3"
   }
