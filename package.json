@@ -6,6 +6,7 @@
     "test": "./node_modules/jest/bin/jest.js",
     "lint": "./node_modules/.bin/eslint .",
     "dev": "./node_modules/gulp/bin/gulp.js",
+    "watch": "./node_modules/gulp/bin/gulp.js watch",
     "clean": "./node_modules/gulp/bin/gulp.js clean",
     "production": "./node_modules/gulp/bin/gulp.js --env production"
   },
@@ -33,7 +34,6 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
-    "gulp-babel": "^6.1.1",
     "babel-eslint": "^7.2.2",
     "babel-jest": "^19.0.0",
     "babel-preset-es2016": "^6.24.1",
@@ -44,6 +44,8 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
+    "gulp-babel": "^6.1.1",
+    "gulp-watch": "^4.3.11",
     "jest": "^19.0.2",
     "regenerator-runtime": "^0.10.3"
   }

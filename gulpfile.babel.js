@@ -11,6 +11,7 @@ import del from 'del';
 import runSequence from 'run-sequence';
 import changed from 'gulp-changed';
 import plumber from 'gulp-plumber';
+import watch from 'gulp-watch';
 
 import JavaScriptTasks from './build-tasks/javascript';
 
